@@ -1,4 +1,4 @@
----@module 'best-digraphs.util'
+---@module 'nvim-glyph.util'
 
 local M = {}
 

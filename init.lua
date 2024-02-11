@@ -1,4 +1,4 @@
----@module 'best-digraphs.init'
+---@module 'nvim-glyph.init'
 
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
@@ -6,7 +6,7 @@ local dropdown = require('telescope.themes').get_dropdown({})
 local conf = require('telescope.config').values
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
-local digraphs = require('best-digraphs.digraphs')
+local digraphs = require('nvim-glyph.digraphs')
 
 local M = {}
 
@@ -17,7 +17,7 @@ M.opts = {
   -- telescope style for popup
   telescope_style = dropdown,
 
-  -- these are the catagories that best-digraphs defines to be excludable
+  -- these are the catagories that nvim-glyph defines to be excludable
   exclude_catagories = {
     -- 'GREEK',
     -- 'LATIN',

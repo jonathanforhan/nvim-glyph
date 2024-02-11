@@ -1,6 +1,6 @@
----@module 'best-digraphs.digraphs'
+---@module 'nvim-glyph.digraphs'
 
-local util = require('best-digraphs.util')
+local util = require('nvim-glyph.util')
 
 local M = {}
 
