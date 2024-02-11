@@ -78,3 +78,5 @@ opts = {
 ```
 
 ## Demo
+
+[screen-capture.webm](https://github.com/jonathanforhan/nvim-glyph/assets/99012095/96f33b19-4320-44f4-a20f-d0297d0f3fc4)
