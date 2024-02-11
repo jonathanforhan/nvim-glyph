@@ -4,6 +4,8 @@ a neovim plugin to have queryable glyphs
 
 ## Install
 
+lazy.nvim
+
 ```lua
 {
   'jonathanforhan/nvim-glyph',
@@ -16,6 +18,7 @@ a neovim plugin to have queryable glyphs
       require('nvim-glyph').pick_glyph()
     end)
   end
+}
 ```
 
 ## Default Setup
