@@ -49,10 +49,18 @@ M.opts = {
   },
 
   -- exclude certain digraph codes from being included
-  exclude_code = {},
+  exclude_code = {
+    -- a digraph dec code
+  },
 
   -- custom user-defined digraphs
-  custom = {},
+  custom = {
+    -- {
+    --   value = 'a digraph'
+    --   display = 'description'
+    --   ordinal = 'query string' or nil
+    -- }
+  },
 }
 
 ---setup with digraph options
@@ -76,16 +84,22 @@ M.setup = function(opts)
   M.opts = digraphs.expand_excludes(M.opts)
 end
 
----pick_digraph
----allows user the pick a diagraph via query
-M.pick_digraph = function()
+---pick_glyph
+---allows user the pick a glyph via query
+M.pick_glyph = function()
   local mode = vim.api.nvim_get_mode().mode
   local insert = mode == 'i' or mode == 'v'
+
+  -- get default digraphs
+  local results = digraphs.fetch(M.opts)
+
+  -- add custom unicode
+  digraphs.add_custom(M.opts, results)
 
   pickers.new(M.opts.telescope_style, {
     prompt_title = 'Digraphs',
     finder = finders.new_table({
-      results = digraphs.fetch(M.opts),
+      results = results,
       entry_maker = function(entry)
         return {
           value = entry,

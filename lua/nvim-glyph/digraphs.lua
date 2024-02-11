@@ -66,6 +66,13 @@ M.expand_excludes = function(opts)
   return opts
 end
 
+M.add_custom = function(opts, digraph_table)
+  for i = 1, #opts.custom do
+    local custom = opts.custom[i]
+    digraph_table[#digraph_table + 1] = { custom.value, custom.display, custom.ordinal or custom.display }
+  end
+end
+
 ---fetch_digraphs
 ---read digraphs and construct a queryable table for telescope
 ---@param opts table
