@@ -44,6 +44,7 @@ local read_digraphs = function(digraph_table_path)
   table.remove(lines, 1)      -- remove header
   table.remove(lines, #lines) -- remove footer
   table.remove(lines, #lines) --
+  table.remove(lines, #lines) --
 
   return lines
 end
