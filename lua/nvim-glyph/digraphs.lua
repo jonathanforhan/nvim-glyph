@@ -1,21 +1,21 @@
----@module 'nvim-glyph.digraphs'
+---@module "nvim-glyph.digraphs"
 
-local util = require('nvim-glyph.util')
+local util = require("nvim-glyph.util")
 
 local M = {}
 
 -- internal, expanded catagories; see init.lua for user-facing catagories
 M.catagories = {
-  'GREEK',
-  'LATIN',
-  'CYRILLIC',
-  'HEBREW',
-  'ARABIC',
-  'EXTENDED',
-  'BOX',
-  'HIRAGANA',
-  'KATAKANA',
-  'BOPOMOFO',
+  "GREEK",
+  "LATIN",
+  "CYRILLIC",
+  "HEBREW",
+  "ARABIC",
+  "EXTENDED",
+  "BOX",
+  "HIRAGANA",
+  "KATAKANA",
+  "BOPOMOFO",
 }
 
 ---read_digraphs
@@ -33,7 +33,7 @@ local read_digraphs = function(digraph_table_path)
   for line in io.lines(digraph_table_path) do
     if not table_found then
       -- find the table mbyte section
-      if line:find('digraph%-table%-mbyte') then
+      if line:find("digraph%-table%-mbyte") then
         table_found = true
       end
     else
@@ -54,23 +54,31 @@ end
 ---@return table
 M.expand_excludes = function(opts)
   for i = 1, #opts.exclude_catagories do
-    if opts.exclude_catagories[i] == 'JAPANESE' then
+    if opts.exclude_catagories[i] == "JAPANESE" then
       opts.exclude_catagories[i] = nil
-      opts.exclude_catagories[#opts.exclude_catagories + 1] = 'HIRAGANA'
-      opts.exclude_catagories[#opts.exclude_catagories + 1] = 'KATAKANA'
-      opts.exclude_catagories[#opts.exclude_catagories + 1] = 'BOPOMOFO'
-    elseif opts.exclude_catagories[i] == 'ARABIC' then
-      opts.exclude_catagories[#opts.exclude_catagories + 1] = 'EXTENDED'
+      opts.exclude_catagories[#opts.exclude_catagories + 1] = "HIRAGANA"
+      opts.exclude_catagories[#opts.exclude_catagories + 1] = "KATAKANA"
+      opts.exclude_catagories[#opts.exclude_catagories + 1] = "BOPOMOFO"
+    elseif opts.exclude_catagories[i] == "ARABIC" then
+      opts.exclude_catagories[#opts.exclude_catagories + 1] = "EXTENDED"
     end
   end
 
   return opts
 end
 
-M.add_custom = function(opts, digraph_table)
-  for i = 1, #opts.custom do
-    local custom = opts.custom[i]
-    digraph_table[#digraph_table + 1] = { custom.value, custom.display, custom.ordinal or custom.display }
+---add custom unicode to digraph_table
+---@param table of custom digrams
+---@param[out] diagraph_table to append to
+M.add_custom = function(custom, digraph_table)
+  for i = 1, #custom do
+    local custom = custom[i]
+
+    digraph_table[#digraph_table + 1] = {
+      custom.value,
+      custom.display,
+      custom.ordinal or custom.display
+    }
   end
 end
 
@@ -85,13 +93,13 @@ M.fetch = function(opts)
   for i = 1, #digraphs do
     -- iterate by tab
     local w = {}
-    for word in digraphs[i]:gmatch('([^\t]+)') do
+    for word in digraphs[i]:gmatch("([^\t]+)") do
       w[#w + 1] = word
     end
 
-    local catagory = 'OTHER'
+    local catagory = "OTHER"
     for j = 1, #M.catagories do
-      if w[5] and w[5]:match('^' .. M.catagories[j]) then
+      if w[5] and w[5]:match("^" .. M.catagories[j]) then
         catagory = M.catagories[j]
       end
     end
@@ -113,12 +121,12 @@ M.fetch = function(opts)
 
     if not exclude then
       -- scrub data for easier query
-      local value = w[5] and w[1] or ' '
+      local value = w[5] and w[1] or " "
       local ordinal = w[5] or w[4]
       local display = w[5] or w[4]
 
       for j = 1, #opts.exclude_keywords do
-        display = display:gsub(opts.exclude_keywords[j], '')
+        display = display:gsub(opts.exclude_keywords[j], "")
       end
 
       digraph_table[#digraph_table + 1] = { value, ordinal, display }

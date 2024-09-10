@@ -8,14 +8,14 @@ lazy.nvim
 
 ```lua
 {
-  'jonathanforhan/nvim-glyph',
+  "jonathanforhan/nvim-glyph",
   dependencies = {
-    { 'nvim-telescope/telescope.nvim' }
+    { "nvim-telescope/telescope.nvim" }
   },
   opts = {},
   init = function()
-    vim.keymap.set('i', '<C-k>', function()
-      require('nvim-glyph').pick_glyph()
+    vim.keymap.set("i", "<C-k>", function()
+      require("nvim-glyph").pick_glyph()
     end)
   end
 }
@@ -35,46 +35,46 @@ opts = {
 
   -- these are the catagories that nvim-glyph defines to be excludable
   exclude_catagories = {
-    -- 'GREEK',
-    -- 'LATIN',
-    -- 'CYRILLIC',
-    -- 'HEBREW',
-    -- 'ARABIC',
-    -- 'BOX',
-    -- 'JAPANESE',
-    -- 'OTHER'
+    -- "GREEK",
+    -- "LATIN",
+    -- "CYRILLIC",
+    -- "HEBREW",
+    -- "ARABIC",
+    -- "BOX",
+    -- "JAPANESE",
+    -- "OTHER"
   },
 
   -- exclude these keywords for being display, still present for queries, however
   exclude_keywords = {
-    'GREEK ',
-    'LATIN ',
-    'CYRILLIC ',
-    'HEBREW ',
-    'ARABIC ',
-    'ARABIC%-INDIC ',
-    'EXTENDED ',
-    'VULGAR ',
-    'HIRAGANA ',
-    'KATAKANA ',
-    'BOPOMOFO ',
-    'CAPITAL ',
-    'SMALL ',
-    'LETTER ',
-    'DIGIT ',
+    "GREEK ",
+    "LATIN ",
+    "CYRILLIC ",
+    "HEBREW ",
+    "ARABIC ",
+    "ARABIC%-INDIC ",
+    "EXTENDED ",
+    "VULGAR ",
+    "HIRAGANA ",
+    "KATAKANA ",
+    "BOPOMOFO ",
+    "CAPITAL ",
+    "SMALL ",
+    "LETTER ",
+    "DIGIT ",
   },
 
   -- exclude certain digraph codes from being included
   exclude_code = {
-    -- a digraph dec code (see ':h digraphs' for codes)
+    -- a digraph dec code (see ":h digraphs" for codes)
   },
 
   -- custom user-defined glyphs
   custom = {
     -- {
-    --   value = ''                        -- any unicode (or any UTF-8 string for that matter)
-    --   display = 'TUX'                    -- a description
-    --   ordinal = 'query string' or nil    -- optional query string, will be the display if nil
+    --   value = ""                        -- any unicode (or any UTF-8 string for that matter)
+    --   display = "TUX"                    -- a description
+    --   ordinal = "query string" or nil    -- optional query string, will be the display if nil
     -- }
   },
 }

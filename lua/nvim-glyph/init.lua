@@ -1,12 +1,12 @@
----@module 'nvim-glyph.init'
+---@module "nvim-glyph.init"
 
-local pickers = require('telescope.pickers')
-local finders = require('telescope.finders')
-local dropdown = require('telescope.themes').get_dropdown({})
-local conf = require('telescope.config').values
-local actions = require('telescope.actions')
-local action_state = require('telescope.actions.state')
-local digraphs = require('nvim-glyph.digraphs')
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local dropdown = require("telescope.themes").get_dropdown({})
+local conf = require("telescope.config").values
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+local digraphs = require("nvim-glyph.digraphs")
 
 local M = {}
 
@@ -19,33 +19,33 @@ M.opts = {
 
   -- these are the catagories that nvim-glyph defines to be excludable
   exclude_catagories = {
-    -- 'GREEK',
-    -- 'LATIN',
-    -- 'CYRILLIC',
-    -- 'HEBREW',
-    -- 'ARABIC',
-    -- 'BOX',
-    -- 'JAPANESE',
-    -- 'OTHER'
+    -- "GREEK",
+    -- "LATIN",
+    -- "CYRILLIC",
+    -- "HEBREW",
+    -- "ARABIC",
+    -- "BOX",
+    -- "JAPANESE",
+    -- "OTHER"
   },
 
   -- exclude these keywords for being display, still present for queries, however
   exclude_keywords = {
-    'GREEK ',
-    'LATIN ',
-    'CYRILLIC ',
-    'HEBREW ',
-    'ARABIC ',
-    'ARABIC%-INDIC ',
-    'EXTENDED ',
-    'VULGAR ',
-    'HIRAGANA ',
-    'KATAKANA ',
-    'BOPOMOFO ',
-    'CAPITAL ',
-    'SMALL ',
-    'LETTER ',
-    'DIGIT ',
+    "GREEK ",
+    "LATIN ",
+    "CYRILLIC ",
+    "HEBREW ",
+    "ARABIC ",
+    "ARABIC%-INDIC ",
+    "EXTENDED ",
+    "VULGAR ",
+    "HIRAGANA ",
+    "KATAKANA ",
+    "BOPOMOFO ",
+    "CAPITAL ",
+    "SMALL ",
+    "LETTER ",
+    "DIGIT ",
   },
 
   -- exclude certain digraph codes from being included
@@ -56,9 +56,9 @@ M.opts = {
   -- custom user-defined digraphs
   custom = {
     -- {
-    --   value = 'a digraph'
-    --   display = 'description'
-    --   ordinal = 'query string' or nil
+    --   value = "a digraph"
+    --   display = "description"
+    --   ordinal = "query string" or nil
     -- }
   },
 }
@@ -88,23 +88,23 @@ end
 ---allows user the pick a glyph via query
 M.pick_glyph = function()
   local mode = vim.api.nvim_get_mode().mode
-  local insert = mode == 'i' or mode == 'v'
+  local insert = mode == "i" or mode == "v"
 
   -- get default digraphs
   local results = digraphs.fetch(M.opts)
 
   -- add custom unicode
-  digraphs.add_custom(M.opts, results)
+  digraphs.add_custom(M.opts["custom"], results)
 
   pickers.new(M.opts.telescope_style, {
-    prompt_title = 'Digraphs',
+    prompt_title = "Digraphs",
     finder = finders.new_table({
       results = results,
       entry_maker = function(entry)
         return {
           value = entry,
-          display = entry[1] .. ' ' .. entry[3],
-          ordinal = entry[3] .. ',' .. entry[2],
+          display = entry[1] .. " " .. entry[3],
+          ordinal = entry[3] .. "," .. entry[2],
         }
       end,
     }),
@@ -113,9 +113,9 @@ M.pick_glyph = function()
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
-        vim.api.nvim_put({ selection.value[1] }, '', false, true)
+        vim.api.nvim_put({ "" .. string.gsub(selection.value[1], "%s+", "") }, "", false, true)
         if insert then
-          vim.api.nvim_feedkeys('a', 'n', true)
+          vim.api.nvim_feedkeys("a", "n", true)
         end
       end)
       return true

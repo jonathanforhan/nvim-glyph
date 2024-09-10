@@ -1,4 +1,4 @@
----@module 'nvim-glyph.util'
+---@module "nvim-glyph.util"
 
 local M = {}
 
@@ -6,7 +6,7 @@ local M = {}
 --- @param file string
 ---@return boolean
 M.file_exists = function(file)
-  local f = io.open(file, 'rb')
+  local f = io.open(file, "rb")
   if f then
     f:close()
   end
